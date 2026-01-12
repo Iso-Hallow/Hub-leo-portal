@@ -12,6 +12,7 @@
             --text-main: #c9d1d9;
             --accent: #58a6ff;
             --success: #238636;
+            --link-color: #58a6ff;
         }
         body {
             background-color: var(--bg);
@@ -24,8 +25,10 @@
             margin: 0;
         }
         .header { text-align: center; margin-bottom: 40px; }
-        .header h1 { font-size: 24px; color: var(--accent); margin-bottom: 8px; }
+        .header h1 { font-size: 28px; color: var(--accent); margin-bottom: 8px; letter-spacing: 1px; }
         .header p { color: #8b949e; font-size: 14px; }
+
+        .section-title { width: 100%; max-width: 900px; margin: 30px 0 15px; font-size: 14px; color: #8b949e; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
 
         .grid {
             display: grid;
@@ -42,19 +45,21 @@
             padding: 20px;
             text-decoration: none;
             color: inherit;
-            transition: transform 0.2s, border-color 0.2s;
+            transition: all 0.2s ease;
             display: flex;
             flex-direction: column;
+            position: relative;
         }
         .card:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
         }
-        .card h3 { margin: 0 0 10px 0; color: var(--accent); display: flex; align-items: center; gap: 10px; }
-        .card p { margin: 0; font-size: 13px; color: #8b949e; line-height: 1.4; }
+        .card h3 { margin: 0 0 10px 0; color: var(--accent); font-size: 18px; }
+        .card p { margin: 0; font-size: 13px; color: #8b949e; line-height: 1.4; flex-grow: 1; }
         .status {
             margin-top: 15px;
-            font-size: 11px;
+            font-size: 10px;
             font-weight: bold;
             text-transform: uppercase;
             color: var(--success);
@@ -64,48 +69,79 @@
         }
         .status::before { content: "●"; }
 
-        .footer { margin-top: 50px; font-size: 12px; color: #484f58; }
+        .footer { margin-top: 50px; font-size: 12px; color: #484f58; text-align: center; }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>HUB LEO | ЦИТАДЕЛЬ</h1>
-        <p>Операционный узел управления и база исследований</p>
+        <p>Инфраструктурная экосистема и операционный узел управления</p>
     </div>
 
+    <!-- ОСНОВНЫЕ УЗЛЫ -->
+    <div class="section-title">Core Nodes</div>
     <div class="grid">
-        <!-- Ссылка на публичный Research Log (Google Sites) -->
         <a href="https://sites.google.com/view/hub-leo-research" class="card">
             <h3>🧪 Research Log</h3>
-            <p>Журнал исследований Lineage 2 Core и AI Lab. База знаний проекта.</p>
-            <div class="status">Online</div>
+            <p>Центральный журнал исследований Lineage 2 Core и AI Lab. База знаний проекта.</p>
+            <div class="status">Public Access</div>
         </a>
 
-        <!-- Ссылка на приватный Ops Center (Google Sites) -->
         <a href="https://sites.google.com/view/hub-leo-command-center" class="card">
             <h3>⚙️ Ops Center</h3>
-            <p>Панель управления: Janitor, Relay Bot и инструменты автоматизации.</p>
-            <div class="status">Secure</div>
+            <p>Панель управления: Janitor, Relay Bot и инструменты автоматизации в Google Cloud.</p>
+            <div class="status">Secure Node</div>
         </a>
 
-        <!-- Ссылка на твой домашний Dashy (если проброшен) -->
         <a href="https://dashy.hub-leo.ru/" class="card">
             <h3>🏠 Home Lab</h3>
-            <p>Домашний эшелон: Nextcloud, Wiki и внутренние сервисы.</p>
-            <div class="status">Local Cloud</div>
+            <p>Домашний эшелон: Nextcloud, Wiki и внутренние контейнеры (Docker/NPM).</p>
+            <div class="status">Local Tier</div>
+        </a>
+    </div>
+
+    <!-- ЗНАНИЯ И ПУБЛИКАЦИИ -->
+    <div class="section-title">Knowledge & Articles</div>
+    <div class="grid">
+        <a href="https://dzen.ru/user/ge5du52w43ggxebq63fdthg1qw" target="_blank" class="card">
+            <h3>🌐 Яндекс Дзен</h3>
+            <p>Блог с глубокими техническими разборами и логами инцидентов (Postmortem).</p>
+            <div class="status" style="color: #ff4e00;">Articles</div>
         </a>
 
-        <!-- Ссылка на GitHub документацию -->
-        <!-- <a href="https://github.com/Iso-Hallow/hub-leo-portal/tree/main/docs" class="card">
-            <h3>📚 IT Protocol</h3>
-            <p>Документация инфраструктуры: Ansible, MikroTik, Security Audit.</p>
-            <div class="status">Documentation</div>
+        <a href="https://hallow-it-log.blogspot.com/" target="_blank" class="card">
+            <h3>📝 IT Log (Blogger)</h3>
+            <p>Архивный журнал системного администрирования и заметок "на полях".</p>
+            <div class="status">Archive</div>
         </a>
-    </div> -->
+
+        <a href="https://iso-hallow.github.io/sysadmin-quest/" target="_blank" class="card">
+            <h3>🎮 Sysadmin Quest</h3>
+            <p>Интерактивный образовательный проект. Путь обучения системного инженера.</p>
+            <div class="status">Education</div>
+        </a>
+    </div>
+
+    <!-- СООБЩЕСТВО И СВЯЗЬ -->
+    <div class="section-title">Community & Social</div>
+    <div class="grid">
+        <a href="https://vk.com/diary_keys" target="_blank" class="card">
+            <h3>💬 Diary Keys (VK)</h3>
+            <p>Публичный дневник разработки и оперативные новости Хаба в VK.</p>
+            <div class="status">Social Hub</div>
+        </a>
+
+        <a href="https://t.me/Hub_Leo_Ops_Bot" target="_blank" class="card">
+            <h3>🤖 Leo Ops Relay</h3>
+            <p>Telegram-бот для удаленного управления (ChatOps) и уведомлений от GitHub.</p>
+            <div class="status">Active Bot</div>
+        </a>
+    </div>
 
     <div class="footer">
-        Hub Leo Infrastructure Ecosystem © 2026
+        Hub Leo Infrastructure Ecosystem © 2026<br>
+        Built by Leo | Systems Architect
     </div>
 
 </body>
