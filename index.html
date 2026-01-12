@@ -12,10 +12,22 @@
             --text-main: #c9d1d9;
             --accent: #58a6ff;
             --success: #238636;
-            --link-color: #58a6ff;
+            --portal: #bf58ff; /* Цвет для MistWorld */
         }
+
+        /* ПЛАВНАЯ АНИМАЦИЯ ФОНА */
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         body {
-            background-color: var(--bg);
+            /* Фон с плавным переливом */
+            background: linear-gradient(-45deg, #0d1117, #161b22, #0d1117, #1a1f26);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            
             color: var(--text-main);
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
             display: flex;
@@ -23,12 +35,24 @@
             align-items: center;
             padding: 40px 20px;
             margin: 0;
+            min-height: 100vh;
         }
+
         .header { text-align: center; margin-bottom: 40px; }
-        .header h1 { font-size: 28px; color: var(--accent); margin-bottom: 8px; letter-spacing: 1px; }
+        .header h1 { font-size: 28px; color: var(--accent); margin-bottom: 8px; letter-spacing: 2px; }
         .header p { color: #8b949e; font-size: 14px; }
 
-        .section-title { width: 100%; max-width: 900px; margin: 30px 0 15px; font-size: 14px; color: #8b949e; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid var(--border); padding-bottom: 5px; }
+        .section-title { 
+            width: 100%; 
+            max-width: 900px; 
+            margin: 30px 0 15px; 
+            font-size: 12px; 
+            color: #8b949e; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 5px; 
+        }
 
         .grid {
             display: grid;
@@ -39,37 +63,42 @@
         }
 
         .card {
-            background: var(--card-bg);
+            background: rgba(22, 27, 34, 0.8); /* Полупрозрачность для эффекта на фоне анимации */
+            backdrop-filter: blur(5px);
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 20px;
             text-decoration: none;
             color: inherit;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             position: relative;
+            overflow: hidden;
         }
+
         .card:hover {
             transform: translateY(-5px);
             border-color: var(--accent);
-            box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: rgba(22, 27, 34, 1);
         }
-        .card h3 { margin: 0 0 10px 0; color: var(--accent); font-size: 18px; }
-        .card p { margin: 0; font-size: 13px; color: #8b949e; line-height: 1.4; flex-grow: 1; }
+
+        .card h3 { margin: 0 0 10px 0; color: var(--accent); font-size: 18px; display: flex; align-items: center; gap: 8px; }
+        .card p { margin: 0; font-size: 13px; color: #8b949e; line-height: 1.5; flex-grow: 1; }
+        
         .status {
             margin-top: 15px;
             font-size: 10px;
             font-weight: bold;
             text-transform: uppercase;
-            color: var(--success);
             display: flex;
             align-items: center;
             gap: 5px;
         }
         .status::before { content: "●"; }
 
-        .footer { margin-top: 50px; font-size: 12px; color: #484f58; text-align: center; }
+        .footer { margin-top: 60px; font-size: 12px; color: #484f58; text-align: center; line-height: 1.6; }
     </style>
 </head>
 <body>
@@ -80,68 +109,77 @@
     </div>
 
     <!-- ОСНОВНЫЕ УЗЛЫ -->
-    <div class="section-title">Core Nodes</div>
+    <div class="section-title">Core Ecosystem</div>
     <div class="grid">
-        <a href="https://sites.google.com/view/hub-leo-research" class="card">
+        <!-- MistWorld -->
+        <a href="https://iso-hallow.github.io/mistworld-web/" target="_blank" class="card">
+            <h3>🌐 MistWorld</h3>
+            <p>Интерактивная точка входа и портал-витрина проекта. Внешний контур Хаба.</p>
+            <div class="status" style="color: var(--portal);">Gateway</div>
+        </a>
+
+        <!-- Research Log -->
+        <a href="https://sites.google.com/view/hub-leo-research" target="_blank" class="card">
             <h3>🧪 Research Log</h3>
-            <p>Центральный журнал исследований Lineage 2 Core и AI Lab. База знаний проекта.</p>
-            <div class="status">Public Access</div>
+            <p>Центральный журнал исследований Lineage 2 Core и AI Lab. База знаний.</p>
+            <div class="status" style="color: var(--success);">Public Log</div>
         </a>
 
-        <a href="https://sites.google.com/view/hub-leo-command-center" class="card">
+        <!-- Ops Center -->
+        <a href="https://sites.google.com/view/hub-leo-command-center" target="_blank" class="card">
             <h3>⚙️ Ops Center</h3>
-            <p>Панель управления: Janitor, Relay Bot и инструменты автоматизации в Google Cloud.</p>
-            <div class="status">Secure Node</div>
-        </a>
-
-        <a href="https://dashy.hub-leo.ru/" class="card">
-            <h3>🏠 Home Lab</h3>
-            <p>Домашний эшелон: Nextcloud, Wiki и внутренние контейнеры (Docker/NPM).</p>
-            <div class="status">Local Tier</div>
+            <p>Панель инструментов: Janitor, Relay Bot и автоматизация в Google Cloud.</p>
+            <div class="status" style="color: var(--accent);">Secure Ops</div>
         </a>
     </div>
 
     <!-- ЗНАНИЯ И ПУБЛИКАЦИИ -->
-    <div class="section-title">Knowledge & Articles</div>
+    <div class="section-title">Knowledge & Education</div>
     <div class="grid">
         <a href="https://dzen.ru/user/ge5du52w43ggxebq63fdthg1qw" target="_blank" class="card">
-            <h3>🌐 Яндекс Дзен</h3>
-            <p>Блог с техническими разборами и логами инцидентов.</p>
+            <h3>📒 Яндекс Дзен</h3>
+            <p>Технический блог: разборы инцидентов, гайды и системная аналитика.</p>
             <div class="status" style="color: #ff4e00;">Articles</div>
-        </a>
-
-        <a href="https://hallow-it-log.blogspot.com/" target="_blank" class="card">
-            <h3>📝 IT Log (Blogger)</h3>
-            <p>Архивный журнал системного администрирования и заметок "на полях".</p>
-            <div class="status">Archive</div>
         </a>
 
         <a href="https://iso-hallow.github.io/sysadmin-quest/" target="_blank" class="card">
             <h3>🎮 Sysadmin Quest</h3>
-            <p>Интерактивная визитная карточка - системного инженера.</p>
-            <div class="status">Education</div>
+            <p>Интерактивная визиная карточка - системного инженера.</p>
+            <div class="status" style="color: #58ffc9;">Education</div>
+        </a>
+
+        <a href="https://hallow-it-log.blogspot.com/" target="_blank" class="card">
+            <h3>📝 Blogger Archive</h3>
+            <p>Архивный журнал заметок "На полях".</p>
+            <div class="status" style="color: #f39c12;">Archive</div>
         </a>
     </div>
 
     <!-- СООБЩЕСТВО И СВЯЗЬ -->
-    <div class="section-title">Community & Social</div>
+    <div class="section-title">Social & Connectivity</div>
     <div class="grid">
         <a href="https://vk.com/diary_keys" target="_blank" class="card">
-            <h3>💬 Diary Keys (VK)</h3>
-            <p>Публичный дневник разработки и оперативные новости Хаба в VK.</p>
-            <div class="status">Social Hub</div>
+            <h3>💬 VK Diary</h3>
+            <p>Публичный дневник разработки Хаба и мысли «на полях» в VK.</p>
+            <div class="status" style="color: #4c75a3;">Social</div>
         </a>
 
-        <a href="https://t.me/Hub_Leo_Ops_Bot" target="_blank" class="card">
-            <h3>🤖 Leo Ops Relay</h3>
-            <p>Telegram-бот для удаленного управления (ChatOps) и уведомлений от GitHub.</p>
-            <div class="status">Active Bot</div>
+        <a href="https://t.me/Hub_Leo_Lab_Bot" target="_blank" class="card">
+            <h3>🤖 Leo Relay Bot</h3>
+            <p>Telegram-узел для ChatOps управления и уведомлений системы.</p>
+            <div class="status" style="color: #2ea1da;">Active Bot</div>
+        </a>
+
+        <a href="https://dashy.hub-leo.ru/" target="_blank" class="card">
+            <h3>🏠 Home Lab</h3>
+            <p>Домашний эшелон сервисов (Nextcloud, Wiki, Docker). Локальный узел.</p>
+            <div class="status" style="color: #ffffff;">Local Node</div>
         </a>
     </div>
 
     <div class="footer">
         Hub Leo Infrastructure Ecosystem © 2026<br>
-        Built by Leo | Systems Architect
+        Built by Leo | Systems Architect & Research Engineer
     </div>
 
 </body>
