@@ -1,1 +1,112 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hub Leo | Cloud Gateway</title>
+    <style>
+        :root {
+            --bg: #0d1117;
+            --card-bg: #161b22;
+            --border: #30363d;
+            --text-main: #c9d1d9;
+            --accent: #58a6ff;
+            --success: #238636;
+        }
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            margin: 0;
+        }
+        .header { text-align: center; margin-bottom: 40px; }
+        .header h1 { font-size: 24px; color: var(--accent); margin-bottom: 8px; }
+        .header p { color: #8b949e; font-size: 14px; }
 
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+        .card h3 { margin: 0 0 10px 0; color: var(--accent); display: flex; align-items: center; gap: 10px; }
+        .card p { margin: 0; font-size: 13px; color: #8b949e; line-height: 1.4; }
+        .status {
+            margin-top: 15px;
+            font-size: 11px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: var(--success);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .status::before { content: "●"; }
+
+        .footer { margin-top: 50px; font-size: 12px; color: #484f58; }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>HUB LEO | ЦИТАДЕЛЬ</h1>
+        <p>Операционный узел управления и база исследований</p>
+    </div>
+
+    <div class="grid">
+        <!-- Ссылка на публичный Research Log (Google Sites) -->
+        <a href="https://sites.google.com/view/hub-leo-research" class="card">
+            <h3>🧪 Research Log</h3>
+            <p>Журнал исследований Lineage 2 Core и AI Lab. База знаний проекта.</p>
+            <div class="status">Online</div>
+        </a>
+
+        <!-- Ссылка на приватный Ops Center (Google Sites) -->
+        <a href="https://sites.google.com/view/hub-leo-command-center" class="card">
+            <h3>⚙️ Ops Center</h3>
+            <p>Панель управления: Janitor, Relay Bot и инструменты автоматизации.</p>
+            <div class="status">Secure</div>
+        </a>
+
+        <!-- Ссылка на твой домашний Dashy (если проброшен) -->
+        <a href="https://dashy.hub-leo.ru/" class="card">
+            <h3>🏠 Home Lab</h3>
+            <p>Домашний эшелон: Nextcloud, Wiki и внутренние сервисы.</p>
+            <div class="status">Local Cloud</div>
+        </a>
+
+        <!-- Ссылка на GitHub документацию -->
+        <a href="https://github.com/ПРОФИЛЬ/hub-leo-portal/tree/main/docs" class="card">
+            <h3>📚 IT Protocol</h3>
+            <p>Документация инфраструктуры: Ansible, MikroTik, Security Audit.</p>
+            <div class="status">Documentation</div>
+        </a>
+    </div>
+
+    <div class="footer">
+        Hub Leo Infrastructure Ecosystem © 2026
+    </div>
+
+</body>
+</html>
