@@ -4,49 +4,90 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hub Leo | Cloud Gateway</title>
+    <!-- Иконка вкладки -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <style>
-        * { box-sizing: border-box; }
+        /* ==========================================================================
+           1. ГЛОБАЛЬНЫЙ СБРОС И ОСНОВА
+           ========================================================================== */
+        * { 
+            box-sizing: border-box; /* Теперь padding не раздувает блоки */
+        }
+
         :root {
             --bg: #0d1117;
-            --card-bg: #161b22;
+            --card-bg: rgba(22, 27, 34, 0.8);
             --border: #30363d;
             --text-main: #c9d1d9;
             --accent: #58a6ff;
             --success: #238636;
-            --portal: #bf58ff; /* Цвет для MistWorld */
+            --portal: #bf58ff;
         }
 
-        /* ПЛАВНАЯ АНИМАЦИЯ ФОНА */
         @keyframes gradientBG {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
 
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            min-height: 100%;
+        }
+
         body {
-           background: linear-gradient(-45deg, #0d1117, #161b22, #0d1117, #1a1f26);
-           background-size: 400% 400%;
-           animation: gradientBG 15s ease infinite;
-           color: var(--text-main);
-           font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-           display: flex;
-           flex-direction: column;
-           align-items: center;
-           padding: 10px 20px; /* Уменьшили отступы самого сайта */
-           margin: 0;
-           height: 100vh; /* Фиксируем высоту */
-           overflow: hidden; /* ПОЛНОСТЬЮ убираем прокрутку */
-         }
+            /* Живой фон */
+            background: linear-gradient(-45deg, #0d1117, #161b22, #0d1117, #1a1f26);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 10px 20px;
+            
+            /* По умолчанию разрешаем скролл (для мобилок) */
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
 
-        .header { text-align: center; margin-bottom: 0px; }
-        .header h1 { font-size: 28px; color: var(--accent); margin-bottom: 8px; letter-spacing: 2px; }
-        .header p { color: #8b949e; font-size: 14px; margin-bottom: 0;}
+        /* Красивый скроллбар */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 10px; }
 
+        /* ==========================================================================
+           2. ШАПКА И ТЕКСТ (СБЛИЖЕНЫ)
+           ========================================================================== */
+        .header { 
+            text-align: center; 
+            margin-bottom: 0; /* Убираем отступ снизу совсем */
+        }
+        
+        .header h1 { 
+            font-size: 26px; 
+            color: var(--accent); 
+            margin: 0 0 5px 0; 
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(88, 166, 255, 0.3);
+        }
+        
+        .header p { 
+            color: #8b949e; 
+            font-size: 14px; 
+            margin: 0; /* Убираем стандартные отступы параграфа */
+        }
+
+        /* Разделители секций */
         .section-title { 
             width: 100%; 
             max-width: 900px; 
-            margin: 5px 0 10px; /* Уменьшили верхний отступ до минимума */
+            margin: 8px 0 10px; /* Минимальный зазор сверху и снизу */
             font-size: 12px; 
             color: #8b949e; 
             text-transform: uppercase; 
@@ -55,17 +96,21 @@
             padding-bottom: 5px; 
         }
 
+        /* ==========================================================================
+           3. СЕТКА КАРТОЧЕК
+           ========================================================================== */
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 5px;
+            gap: 15px;
             max-width: 900px;
             width: 100%;
         }
 
         .card {
-            background: rgba(22, 27, 34, 0.8); /* Полупрозрачность для эффекта на фоне анимации */
-            backdrop-filter: blur(5px);
+            background: var(--card-bg);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid var(--border);
             border-radius: 12px;
             padding: 15px;
@@ -74,59 +119,83 @@
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
-            position: relative;
-            overflow: hidden;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             border-color: var(--accent);
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             background: rgba(22, 27, 34, 1);
         }
 
-        .card h3 { margin: 0 0 10px 0; color: var(--accent); font-size: 18px; display: flex; align-items: center; gap: 8px; }
-        .card p { margin: 0; font-size: 13px; color: #8b949e; line-height: 1.5; flex-grow: 1; }
+        .card h3 { margin: 0 0 8px 0; color: var(--accent); font-size: 17px; display: flex; align-items: center; gap: 8px; }
+        .card p { margin: 0; font-size: 13px; color: #8b949e; line-height: 1.4; flex-grow: 1; }
         
+        /* Статусы (Пульсирующая точка) */
         .status {
-            margin-top: 15px;
+            margin-top: 12px;
             font-size: 10px;
             font-weight: bold;
             text-transform: uppercase;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
         }
-        .status::before { content: "●"; }
+        .status::before { 
+            content: ""; 
+            width: 8px; height: 8px; 
+            background-color: currentColor; 
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px currentColor;
+        }
 
-        .footer { margin-top: 20px; font-size: 12px; color: #484f58; text-align: center; line-height: 1.6; }
+        /* ==========================================================================
+           4. ПОДВАЛ (STICKY TO BOTTOM)
+           ========================================================================== */
+        .footer { 
+            margin-top: auto; 
+            padding: 20px 0 10px;
+            font-size: 11px; 
+            color: #484f58; 
+            text-align: center; 
+            line-height: 1.5; 
+        }
+
+        /* ==========================================================================
+           5. АДАПТИВНОСТЬ (УБИРАЕМ СКРОЛЛ НА ДЕСКТОПЕ)
+           ========================================================================== */
+        @media (min-width: 1024px) {
+            body {
+                height: 100vh; /* Ровно высота экрана */
+                overflow: hidden; /* Запрет прокрутки */
+                padding: 10px 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <div class="header">
         <h1>HUB LEO | ЦИТАДЕЛЬ</h1>
-        <p>Инфраструктурная экосистема и операционный узел управления</p>
+        <p>Инфраструктурная экосистема и узел управления</p>
     </div>
 
-    <!-- ОСНОВНЫЕ УЗЛЫ -->
+    <!-- CORE -->
     <div class="section-title">Core Ecosystem</div>
     <div class="grid">
-        <!-- MistWorld -->
         <a href="https://iso-hallow.github.io/mistworld-web/" target="_blank" class="card">
             <h3>🌐 MistWorld</h3>
             <p>Интерактивная точка входа и портал-витрина проекта. Внешний контур Хаба.</p>
             <div class="status" style="color: var(--portal);">Gateway</div>
         </a>
 
-        <!-- Research Log -->
         <a href="https://sites.google.com/view/hub-leo-research" target="_blank" class="card">
             <h3>🧪 Research Log</h3>
             <p>Центральный журнал исследований Lineage 2 Core и AI Lab. База знаний.</p>
             <div class="status" style="color: var(--success);">Public Log</div>
         </a>
 
-        <!-- Ops Center -->
         <a href="https://sites.google.com/view/hub-leo-command-center" target="_blank" class="card">
             <h3>⚙️ Ops Center</h3>
             <p>Панель инструментов: Janitor, Relay Bot и автоматизация в Google Cloud.</p>
@@ -134,7 +203,7 @@
         </a>
     </div>
 
-    <!-- ЗНАНИЯ И ПУБЛИКАЦИИ -->
+    <!-- KNOWLEDGE -->
     <div class="section-title">Knowledge & Education</div>
     <div class="grid">
         <a href="https://dzen.ru/user/ge5du52w43ggxebq63fdthg1qw" target="_blank" class="card">
@@ -145,23 +214,23 @@
 
         <a href="https://iso-hallow.github.io/sysadmin-quest/" target="_blank" class="card">
             <h3>🎮 Sysadmin Quest</h3>
-            <p>Интерактивная визиная карточка - системного инженера.</p>
+            <p>Интерактивная визитная карточка системного инженера.</p>
             <div class="status" style="color: #58ffc9;">Education</div>
         </a>
 
         <a href="https://hallow-it-log.blogspot.com/" target="_blank" class="card">
             <h3>📝 Blogger Archive</h3>
-            <p>Архивный журнал заметок "На полях".</p>
+            <p>Архивный журнал заметок и старых записей по администрированию.</p>
             <div class="status" style="color: #f39c12;">Archive</div>
         </a>
     </div>
 
-    <!-- СООБЩЕСТВО И СВЯЗЬ -->
+    <!-- SOCIAL -->
     <div class="section-title">Social & Connectivity</div>
     <div class="grid">
         <a href="https://vk.com/diary_keys" target="_blank" class="card">
             <h3>💬 VK Diary</h3>
-            <p>Публичный дневник разработки Хаба и мысли «на полях» в VK.</p>
+            <p>Публичный дневник разработки Хаба и оперативные новости в VK.</p>
             <div class="status" style="color: #4c75a3;">Social</div>
         </a>
 
